@@ -9,120 +9,118 @@
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
-      background-color: #fdfdfd;
-      color: #333;
-      line-height: 1.6;
+      background: #fafafa;
+      color: #222;
+      scroll-behavior: smooth;
     }
 
-    /* ===== HERO BANNER ===== */
+    /* ===== HERO ===== */
     .hero {
-      position: relative;
-      height: 85vh;
-      min-height: 600px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: white;
-      overflow: hidden;
       background: linear-gradient(135deg, #ff7eb3, #ff758c, #ff9a9e);
-      background-size: 300% 300%;
-      animation: gradientMove 10s ease infinite;
-    }
-
-    @keyframes gradientMove {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      width: 600px;
-      height: 600px;
-      background: rgba(255,255,255,0.15);
-      border-radius: 50%;
-      top: -150px;
-      right: -150px;
-      filter: blur(120px);
-    }
-
-    .hero-content {
+      color: white;
+      text-align: center;
+      padding: 7rem 1rem 6rem;
       position: relative;
-      z-index: 2;
-      max-width: 800px;
-      padding: 0 1rem;
+      overflow: hidden;
     }
 
     .hero h1 {
       font-size: 3.2rem;
       font-weight: 800;
       margin-bottom: 1rem;
-      letter-spacing: -1px;
+      animation: fadeUp 1s ease forwards;
     }
 
     .hero p {
-      font-size: 1.25rem;
-      margin-bottom: 2rem;
-      opacity: 0.95;
+      font-size: 1.3rem;
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      animation: fadeUp 1.3s ease forwards;
     }
 
-    .cta-button {
+    .cta {
       display: inline-block;
-      padding: 0.9rem 2rem;
-      background: white;
+      padding: 1rem 2.2rem;
+      background: #fff;
       color: #ff4f87;
-      font-weight: 600;
+      font-weight: 700;
       border-radius: 50px;
       text-decoration: none;
       transition: all 0.3s ease;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      animation: fadeUp 1.6s ease forwards;
     }
 
-    .cta-button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+    .cta:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 45px rgba(0,0,0,0.3);
     }
 
-    /* ===== EXISTING HEADER ===== */
-    header {
-      background: #fff2f6;
-      padding: 4rem 1rem 3rem;
-      text-align: center;
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(25px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
-    header h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-    }
-
-    header p {
-      font-size: 1.1rem;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
+    /* ===== SECTIONS ===== */
     section {
-      padding: 3rem 1rem;
-      max-width: 800px;
+      padding: 4rem 1rem;
+      max-width: 900px;
       margin: 0 auto;
     }
 
-    section h2 {
-      font-size: 1.8rem;
+    h2 {
+      font-size: 2rem;
       margin-bottom: 1rem;
+      position: relative;
+    }
+
+    h2::after {
+      content: "";
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: #ff4f87;
+      margin-top: 8px;
+    }
+
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 1.2rem;
+      line-height: 1.7;
+    }
+
+    .highlight {
+      font-weight: 600;
+      color: #ff4f87;
+    }
+
+    .process {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .process-step {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+      transition: transform 0.3s ease;
+    }
+
+    .process-step:hover {
+      transform: translateY(-5px);
     }
 
     footer {
       background: #f4f4f4;
       text-align: center;
-      padding: 2rem 1rem;
-      font-size: 0.95rem;
+      padding: 2.5rem 1rem;
+      margin-top: 3rem;
     }
 
     a {
-      color: #d24888;
+      color: #ff4f87;
+      font-weight: 600;
       text-decoration: none;
     }
 
@@ -132,55 +130,82 @@
 
     @media (max-width: 768px) {
       .hero h1 {
-        font-size: 2.2rem;
+        font-size: 2.3rem;
       }
-      .hero {
-        height: 70vh;
+      .hero p {
+        font-size: 1.1rem;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- HERO BANNER -->
-  <section class="hero">
-    <div class="hero-content">
-      <h1>TapCandy Studio 🍬</h1>
-      <p>We design mobile experiences that feel effortless, joyful, and just a little addictive.</p>
-      <a href="#what-we-do" class="cta-button">Discover Our Work</a>
-    </div>
-  </section>
-
-  <header>
-    <h1>Crafting delightful apps, one tap at a time.</h1>
+  <header class="hero">
+    <h1>We build mobile apps people love to use.</h1>
     <p>
-      We’re a small studio that builds mobile apps people actually enjoy using. 
-      Our goal is simple: make things that feel smooth, make sense, and make users smile.
+      TapCandy Studio is a mobile app development studio focused on crafting intuitive, elegant, 
+      and high-performance applications for iOS and Android.
     </p>
+    <a href="#contact" class="cta">Start Your Project</a>
   </header>
 
-  <section id="what-we-do">
-    <h2>What We Do</h2>
+  <section>
+    <h2>Who We Are</h2>
     <p>
-      At TapCandy Studio, we make mobile apps with one thing in mind: the experience. 
-      We think tech should feel effortless - light and fun when it can be, and out of the way when it needs to be. 
-      Whether it’s a handy tool, a quick game, or something in between, our goal is to build apps people actually enjoy using - and keep coming back to.
+      TapCandy Studio is a small, dedicated team of product thinkers, designers, and developers 
+      who believe great apps are built at the intersection of <span class="highlight">clarity, speed, and experience</span>.
     </p>
     <p>
-      We do everything ourselves, from the first sketch to the moment it hits the store. 
-      We care about the little things - the speed, the flow, the feel - because that’s what turns a good app into a great one.
-    </p>
-    <p>
-      We’re not just writing code. We’re making something people will want to tap again. And again. 🍬
+      We don’t just write code — we design digital products that solve real problems and feel natural from the very first tap. 
+      Every detail matters: the way screens transition, how fast things load, how intuitive flows feel.
     </p>
   </section>
 
   <section>
-    <h2>Where to Find Us</h2>
+    <h2>Why Work With Us</h2>
     <p>
-      Our apps are available on the App Store and Google Play. 
-      If you’d like to get in touch, feel free to email us at 
-      <a href="mailto:tcgwall@gmail.com">tcgwall@gmail.com</a>.
+      Choosing a development partner is about more than technical skills. It’s about trust, communication, 
+      and understanding your product vision.
+    </p>
+    <p>
+      We combine clean architecture, thoughtful UX design, and scalable engineering practices to ensure 
+      your app isn’t just beautiful — it’s reliable, secure, and built to grow.
+    </p>
+    <p>
+      With TapCandy Studio, you get a partner who treats your idea like their own.
+    </p>
+  </section>
+
+  <section>
+    <h2>Our Process</h2>
+    <div class="process">
+      <div class="process-step">
+        <strong>1. Discovery & Strategy</strong>
+        <p>We define goals, user personas, technical architecture, and product scope.</p>
+      </div>
+      <div class="process-step">
+        <strong>2. Design & Experience</strong>
+        <p>We craft user flows and UI systems that are intuitive, modern, and brand-aligned.</p>
+      </div>
+      <div class="process-step">
+        <strong>3. Development & Testing</strong>
+        <p>We build fast, scalable apps with clean code and rigorous quality assurance.</p>
+      </div>
+      <div class="process-step">
+        <strong>4. Launch & Growth</strong>
+        <p>We support deployment, optimization, and long-term improvements.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Let’s Build Something Great</h2>
+    <p>
+      Whether you're launching a startup, building an internal tool, or upgrading an existing app — 
+      we’d love to hear about your idea.
+    </p>
+    <p>
+      Contact us at <a href="mailto:tcgwall@gmail.com">tcgwall@gmail.com</a> and let’s start the conversation.
     </p>
   </section>
 
