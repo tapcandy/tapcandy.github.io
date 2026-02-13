@@ -3,215 +3,772 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TapCandy Studio</title>
+  <title>TapCandy Studio - We Build Apps That Pop</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
-      background: #fafafa;
+      background: linear-gradient(180deg, #0a0e27 0%, #1a1f3a 50%, #0f1419 100%);
+      background-attachment: fixed;
       color: #222;
-      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    /* ===== FLOATING PARTICLES ===== */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: radial-gradient(circle, rgba(79, 70, 229, 0.6), rgba(14, 165, 233, 0.3));
+      border-radius: 50%;
+      animation: float linear infinite;
+      will-change: transform;
+      transform: translateZ(0);
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) translateX(0) rotate(0deg) scale(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+        transform: translateY(90vh) translateX(20px) rotate(36deg) scale(1);
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100px) translateX(150px) rotate(360deg) scale(0.5);
+        opacity: 0;
+      }
     }
 
     /* ===== HERO ===== */
     .hero {
-      background: linear-gradient(135deg, #ff7eb3, #ff758c, #ff9a9e);
+      background: linear-gradient(-45deg, #1e3a8a, #3b82f6, #0ea5e9, #06b6d4);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
       color: white;
       text-align: center;
-      padding: 7rem 1rem 6rem;
+      padding: 8rem 1rem 7rem;
       position: relative;
       overflow: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      will-change: transform;
+      transform: translateZ(0);
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+      animation: pulse 8s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-logo {
+      width: 180px;
+      height: auto;
+      margin-bottom: 2rem;
+      animation: fadeUp 0.8s ease forwards;
+      filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
+      transition: transform 0.3s ease;
+    }
+
+    .hero-logo:hover {
+      transform: scale(1.05);
     }
 
     .hero h1 {
-      font-size: 3.2rem;
+      font-size: 4rem;
       font-weight: 800;
-      margin-bottom: 1rem;
-      animation: fadeUp 1s ease forwards;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 1s ease forwards, glow 2s ease-in-out infinite;
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.5),
+                   0 0 40px rgba(255, 255, 255, 0.3);
+      letter-spacing: -0.02em;
+    }
+
+    @keyframes glow {
+      0%, 100% {
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.5),
+                     0 0 40px rgba(255, 255, 255, 0.3);
+      }
+      50% {
+        text-shadow: 0 0 30px rgba(255, 255, 255, 0.8),
+                     0 0 60px rgba(255, 255, 255, 0.5),
+                     0 0 80px rgba(255, 255, 255, 0.3);
+      }
     }
 
     .hero p {
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       max-width: 700px;
-      margin: 0 auto 2rem;
+      margin: 0 auto 3rem;
       animation: fadeUp 1.3s ease forwards;
+      line-height: 1.8;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     }
 
     .cta {
       display: inline-block;
-      padding: 1rem 2.2rem;
-      background: #fff;
-      color: #ff4f87;
+      padding: 1.2rem 3rem;
+      background: linear-gradient(135deg, #fff, #f0f0f0);
+      color: #1e40af;
       font-weight: 700;
+      font-size: 1.1rem;
       border-radius: 50px;
       text-decoration: none;
-      transition: all 0.3s ease;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.3), 0 5px 15px rgba(0,0,0,0.2);
       animation: fadeUp 1.6s ease forwards;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(59, 130, 246, 0.2);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .cta:hover::before {
+      width: 300px;
+      height: 300px;
     }
 
     .cta:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 18px 45px rgba(0,0,0,0.3);
+      transform: translateY(-8px) scale(1.05);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.4), 0 10px 25px rgba(59, 130, 246, 0.4);
+    }
+
+    .cta:active {
+      transform: translateY(-4px) scale(1.02);
     }
 
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(25px); }
+      from { opacity: 0; transform: translateY(40px); }
       to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== SCROLL ARROW ===== */
+    .scroll-arrow {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 30px;
+      height: 50px;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      border-radius: 20px;
+      animation: bounce 2s infinite;
+    }
+
+    .scroll-arrow::before {
+      content: "";
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px;
+      height: 6px;
+      background: white;
+      border-radius: 50%;
+      animation: scrollDot 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(10px); }
+    }
+
+    @keyframes scrollDot {
+      0% { opacity: 1; transform: translateX(-50%) translateY(0); }
+      100% { opacity: 0; transform: translateX(-50%) translateY(20px); }
     }
 
     /* ===== SECTIONS ===== */
     section {
-      padding: 4rem 1rem;
-      max-width: 900px;
-      margin: 0 auto;
+      padding: 8rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto 8rem;
+      position: relative;
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(8px);
+      border-radius: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      transform: translateZ(0);
+      will-change: opacity, transform;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
+
+    section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 30% 40%, rgba(59, 130, 246, 0.05) 0%, transparent 60%);
+      border-radius: 30px;
+      pointer-events: none;
+    }
+
+    section:nth-child(even) {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    section:nth-child(even)::before {
+      background: radial-gradient(circle at 70% 60%, rgba(14, 165, 233, 0.05) 0%, transparent 60%);
+    }
+
+    /* First section - more opaque background for better readability */
+    section:first-of-type {
+      background: rgba(10, 14, 39, 0.85);
+      backdrop-filter: blur(10px);
     }
 
     h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
+      font-size: 3rem;
+      margin-bottom: 2rem;
       position: relative;
+      display: inline-block;
+      background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 800;
     }
 
     h2::after {
       content: "";
       display: block;
-      width: 60px;
+      width: 100%;
       height: 4px;
-      background: #ff4f87;
-      margin-top: 8px;
+      background: linear-gradient(90deg, #3b82f6, #0ea5e9, #06b6d4, #14b8a6);
+      margin-top: 15px;
+      border-radius: 2px;
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
     }
 
     p {
-      font-size: 1.1rem;
-      margin-bottom: 1.2rem;
-      line-height: 1.7;
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.9;
+      color: rgba(255, 255, 255, 0.85);
     }
 
     .highlight {
-      font-weight: 600;
-      color: #ff4f87;
+      font-weight: 700;
+      background: linear-gradient(135deg, #60a5fa 0%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      position: relative;
+      text-shadow: 0 0 30px rgba(96, 165, 250, 0.3);
     }
 
+    .highlight::after {
+      content: "";
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, #60a5fa, #06b6d4);
+      opacity: 0.5;
+      box-shadow: 0 0 10px rgba(96, 165, 250, 0.5);
+    }
+
+    /* ===== PROCESS CARDS ===== */
     .process {
       display: grid;
-      gap: 1.5rem;
-    }
-
-    .process-step {
-      background: white;
-      padding: 1.5rem;
-      border-radius: 12px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-      transition: transform 0.3s ease;
-    }
-
-    .process-step:hover {
-      transform: translateY(-5px);
-    }
-
-    footer {
-      background: #f4f4f4;
-      text-align: center;
-      padding: 2.5rem 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
       margin-top: 3rem;
     }
 
+    .process-step {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(8px);
+      padding: 2.5rem;
+      border-radius: 25px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transform: translateZ(0);
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
+
+    .process-step::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(from 0deg, #3b82f6, #0ea5e9, #06b6d4, #14b8a6, #3b82f6);
+      animation: rotate 6s linear infinite;
+      opacity: 0;
+      transition: opacity 0.5s;
+      will-change: transform;
+    }
+
+    .process-step:hover::before {
+      opacity: 0.2;
+    }
+
+    .process-step::after {
+      content: "";
+      position: absolute;
+      inset: 2px;
+      background: rgba(10, 14, 39, 0.7);
+      backdrop-filter: blur(10px);
+      border-radius: 23px;
+      z-index: 1;
+    }
+
+    .process-step > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    @keyframes rotate {
+      100% { transform: rotate(360deg); }
+    }
+
+    .process-step:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 60px rgba(59, 130, 246, 0.5);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .process-step strong {
+      display: block;
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #60a5fa 0%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+    }
+
+    .process-step p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.75);
+      line-height: 1.7;
+    }
+
+    .process-step .emoji {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      display: inline-block;
+      transition: transform 0.3s ease;
+      filter: drop-shadow(0 0 15px rgba(59, 130, 246, 0.3));
+    }
+
+    .process-step:hover .emoji {
+      transform: scale(1.15) rotate(5deg);
+      filter: drop-shadow(0 0 20px rgba(6, 182, 212, 0.6));
+    }
+
+    /* ===== STATS SECTION ===== */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2.5rem;
+      margin: 4rem 0;
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: 3rem 2rem;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(8px);
+      border-radius: 25px;
+      color: white;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s ease;
+      transform: translateZ(0);
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
+
+    .stat-card::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+      animation: shimmer 3s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%) translateY(-100%) rotate(0deg); }
+      100% { transform: translateX(100%) translateY(100%) rotate(360deg); }
+    }
+
+    .stat-card:hover {
+      transform: translateY(-10px) scale(1.03);
+      box-shadow: 0 25px 50px rgba(59, 130, 246, 0.5);
+      border-color: rgba(59, 130, 246, 0.5);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .stat-number {
+      font-size: 3.5rem;
+      font-weight: 800;
+      display: block;
+      margin-bottom: 0.8rem;
+      background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+    }
+
+    .stat-label {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: rgba(255, 255, 255, 0.02);
+      backdrop-filter: blur(8px);
+      color: white;
+      text-align: center;
+      padding: 4rem 1rem;
+      margin-top: 0;
+      position: relative;
+      overflow: hidden;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      transform: translateZ(0);
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
+
+    footer::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.5), rgba(6, 182, 212, 0.5), transparent);
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+    }
+
+    footer::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    footer p {
+      color: rgba(255, 255, 255, 0.7);
+      margin: 0;
+      position: relative;
+      z-index: 1;
+      font-size: 1.1rem;
+    }
+
     a {
-      color: #ff4f87;
+      color: #60a5fa;
       font-weight: 600;
       text-decoration: none;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    a::after {
+      content: "";
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #60a5fa, #06b6d4);
+      transition: width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 0 10px rgba(96, 165, 250, 0.5);
     }
 
     a:hover {
-      text-decoration: underline;
+      color: #06b6d4;
+      text-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
     }
 
+    a:hover::after {
+      width: 100%;
+    }
+
+    /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
       .hero h1 {
-        font-size: 2.3rem;
+        font-size: 2.5rem;
       }
       .hero p {
         font-size: 1.1rem;
+      }
+      h2 {
+        font-size: 2rem;
+      }
+      .process {
+        grid-template-columns: 1fr;
       }
     }
   </style>
 </head>
 <body>
+  <!-- Floating Particles -->
+  <div class="particles" id="particles"></div>
 
   <header class="hero">
-    <h1>We build mobile apps people love to use.</h1>
-    <p>
-      TapCandy Studio is a mobile app development studio focused on crafting intuitive, elegant, 
-      and high-performance applications for iOS and Android.
-    </p>
-    <a href="#contact" class="cta">Start Your Project</a>
+    <div class="hero-content">
+      <img src="tapcandy-logo.png" alt="TapCandy Studio" class="hero-logo">
+      <h1>We build mobile apps people love to use.</h1>
+      <p>
+        TapCandy Studio is a mobile app development studio focused on crafting intuitive, elegant,
+        and high-performance applications for iOS and Android.
+      </p>
+      <a href="#contact" class="cta">Start Your Project</a>
+    </div>
+    <div class="scroll-arrow"></div>
   </header>
 
-  <section>
-    <h2>Who We Are</h2>
-    <p>
-      TapCandy Studio is a small, dedicated team of product thinkers, designers, and developers 
+  <section data-aos="fade-up" data-aos-duration="800">
+    <h2 data-aos="fade-right" data-aos-delay="100">Who We Are</h2>
+    <p data-aos="fade-up" data-aos-delay="200">
+      TapCandy Studio is a small, dedicated team of product thinkers, designers, and developers
       who believe great apps are built at the intersection of <span class="highlight">clarity, speed, and experience</span>.
     </p>
-    <p>
-      We don’t just write code — we design digital products that solve real problems and feel natural from the very first tap. 
+    <p data-aos="fade-up" data-aos-delay="300">
+      We don't just write code - we design digital products that solve real problems and feel natural from the very first tap.
       Every detail matters: the way screens transition, how fast things load, how intuitive flows feel.
     </p>
   </section>
 
-  <section>
-    <h2>Why Work With Us</h2>
-    <p>
-      Choosing a development partner is about more than technical skills. It’s about trust, communication, 
+  <section data-aos="fade-up" data-aos-duration="800">
+    <h2 data-aos="fade-right" data-aos-delay="100">Why Work With Us</h2>
+    <p data-aos="fade-up" data-aos-delay="200">
+      Choosing a development partner is about more than technical skills. It's about trust, communication,
       and understanding your product vision.
     </p>
-    <p>
-      We combine clean architecture, thoughtful UX design, and scalable engineering practices to ensure 
-      your app isn’t just beautiful — it’s reliable, secure, and built to grow.
+    <p data-aos="fade-up" data-aos-delay="250">
+      We combine clean architecture, thoughtful UX design, and scalable engineering practices to ensure
+      your app isn't just beautiful - it's reliable, secure, and built to grow.
     </p>
-    <p>
+    <p data-aos="fade-up" data-aos-delay="300">
       With TapCandy Studio, you get a partner who treats your idea like their own.
     </p>
   </section>
 
-  <section>
-    <h2>Our Process</h2>
+  <section data-aos="fade-up" data-aos-duration="800">
+    <h2 data-aos="fade-right" data-aos-delay="100">Our Process</h2>
     <div class="process">
-      <div class="process-step">
+      <div class="process-step" data-aos="flip-left" data-aos-delay="200">
+        <div class="emoji">🎯</div>
         <strong>1. Discovery & Strategy</strong>
         <p>We define goals, user personas, technical architecture, and product scope.</p>
       </div>
-      <div class="process-step">
+      <div class="process-step" data-aos="flip-left" data-aos-delay="300">
+        <div class="emoji">🎨</div>
         <strong>2. Design & Experience</strong>
         <p>We craft user flows and UI systems that are intuitive, modern, and brand-aligned.</p>
       </div>
-      <div class="process-step">
+      <div class="process-step" data-aos="flip-left" data-aos-delay="400">
+        <div class="emoji">⚡</div>
         <strong>3. Development & Testing</strong>
         <p>We build fast, scalable apps with clean code and rigorous quality assurance.</p>
       </div>
-      <div class="process-step">
+      <div class="process-step" data-aos="flip-left" data-aos-delay="500">
+        <div class="emoji">🚀</div>
         <strong>4. Launch & Growth</strong>
         <p>We support deployment, optimization, and long-term improvements.</p>
       </div>
     </div>
   </section>
 
-  <section id="contact">
-    <h2>Let’s Build Something Great</h2>
-    <p>
-      Whether you're launching a startup, building an internal tool, or upgrading an existing app — 
-      we’d love to hear about your idea.
+  <section id="contact" data-aos="fade-up" data-aos-duration="800">
+    <h2 data-aos="fade-right" data-aos-delay="100">Let's Build Something Great</h2>
+    <p data-aos="fade-up" data-aos-delay="200">
+      Whether you're launching a startup, building an internal tool, or upgrading an existing app -
+      we'd love to hear about your idea.
     </p>
-    <p>
-      Contact us at <a href="mailto:tcgwall@gmail.com">tcgwall@gmail.com</a> and let’s start the conversation.
+    <p data-aos="fade-up" data-aos-delay="300">
+      Contact us at <a href="mailto:tcgwall@gmail.com">tcgwall@gmail.com</a> and let's start the conversation.
     </p>
   </section>
 
   <footer>
     <p>© 2026 TapCandy Studio. All rights reserved.</p>
   </footer>
+
+  <!-- AOS Library -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+  <script>
+    // Initialize AOS (Animate On Scroll)
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true,
+      offset: 100,
+      disable: false
+    });
+
+    // Create floating particles (optimized for smooth scroll)
+    const particlesContainer = document.getElementById('particles');
+    const particleCount = 15;
+
+    for (let i = 0; i < particleCount; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.top = Math.random() * 100 + '%';
+
+      const duration = 10 + Math.random() * 20;
+      const delay = Math.random() * 10;
+      particle.style.animationDuration = duration + 's';
+      particle.style.animationDelay = delay + 's';
+
+      const size = 2 + Math.random() * 4;
+      particle.style.width = size + 'px';
+      particle.style.height = size + 'px';
+
+      particle.style.opacity = 0.2 + Math.random() * 0.4;
+
+      particlesContainer.appendChild(particle);
+    }
+
+    // Hero parallax (optimized with translate3d for GPU acceleration)
+    let ticking = false;
+    const parallaxThreshold = 200;
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrolled = window.pageYOffset;
+          const hero = document.querySelector('.hero');
+
+          if (hero && scrolled > parallaxThreshold && scrolled < window.innerHeight * 1.2) {
+            const effectiveScroll = scrolled - parallaxThreshold;
+            hero.style.transform = `translate3d(0, ${effectiveScroll * 0.25}px, 0)`;
+          } else if (scrolled <= parallaxThreshold) {
+            hero.style.transform = 'translate3d(0, 0, 0)';
+          }
+
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+
+    // 3D tilt effect on desktop only (GPU accelerated)
+    if (window.innerWidth > 768) {
+      document.querySelectorAll('.process-step, .stat-card').forEach(card => {
+        let tiltTicking = false;
+
+        card.addEventListener('mouseenter', function() {
+          this.style.transition = 'transform 0.1s ease';
+        });
+
+        card.addEventListener('mousemove', function(e) {
+          if (!tiltTicking) {
+            requestAnimationFrame(() => {
+              const rect = this.getBoundingClientRect();
+              const x = e.clientX - rect.left;
+              const y = e.clientY - rect.top;
+
+              const centerX = rect.width / 2;
+              const centerY = rect.height / 2;
+
+              const rotateX = (y - centerY) / 35;
+              const rotateY = (centerX - x) / 35;
+
+              this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translate3d(0, -8px, 0) scale(1.02)`;
+              tiltTicking = false;
+            });
+            tiltTicking = true;
+          }
+        });
+
+        card.addEventListener('mouseleave', function() {
+          this.style.transition = 'transform 0.3s ease';
+          this.style.transform = 'translate3d(0, 0, 0)';
+        });
+      });
+    }
+  </script>
 
 </body>
 </html>
